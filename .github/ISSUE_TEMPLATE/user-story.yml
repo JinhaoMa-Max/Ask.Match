@@ -1,0 +1,124 @@
+name: 用户故事 / 非功能需求
+description: 每条用户故事或非功能需求一个 Issue。故事三段式与 Given/When/Then 缺一不可。
+title: "[US-xx] "
+labels: ["story"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **提交前请确认**：这条故事删掉之后，能说出用户损失了什么。说不出来就是伪需求，请退回重写。
+
+        写法参考 `doc/需求/用户故事清单.md` 中的 US-08 样例。证据链接必须是可点击的行号链接，
+        例如 `doc/调研报告/有问必搭_调研回答整理_S05-S09.md#L44`。
+
+  - type: input
+    id: story-id
+    attributes:
+      label: 编号
+      description: 功能故事 US-01…US-20；非功能需求 NFR-01…NFR-04。必须与标题一致。
+      placeholder: US-08
+    validations:
+      required: true
+
+  - type: textarea
+    id: story
+    attributes:
+      label: 一句话故事
+      description: 作为〈角色〉，我想〈做什么〉，以便〈得到什么价值〉。三段缺一段就不是用户故事。
+      value: "作为〈角色〉，我想〈做什么〉，以便〈得到什么价值〉。"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准（Given / When / Then）
+      description: 每组三行，写成看得见、量得出的结果。"界面友好""响应要快"不合格，要写"2 秒内列出"。
+      placeholder: |
+        - Given 我已提交申请且发起者尚未处理，When 我打开活动详情，Then 状态显示"已提交"。
+        - Given 发起者已接受我的申请，When 我再次打开详情，Then 状态显示"已确认"。
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 证据链接
+      description: 指向 doc/调研报告 下的具体行号，一题多条证据可并列。没有证据的请标"团队假设"。
+      placeholder: "- doc/调研报告/有问必搭_调研回答整理_S05-S09.md#L44"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: strength
+    attributes:
+      label: 证据强度
+      description: 弱证据必须同时打「假设」标签，SRS 里列为待验证，不得写成"用户要求"。
+      options:
+        - 强（≥2 位受访者亲身经历）
+        - 中（1 位亲身经历，或多人一致观察）
+        - 弱（仅建议 / 设想 / 团队假设）
+    validations:
+      required: true
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: 干系人角色（可多选）
+      multiple: true
+      options:
+        - 参与者
+        - 发起者（组织者）
+        - 运营管理员
+        - 场地方 / 资源提供方
+        - 付费方
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 优先级
+      options:
+        - P0
+        - P1
+        - P2
+    validations:
+      required: true
+
+  - type: input
+    id: reason
+    attributes:
+      label: 优先级理由
+      description: 一句话说明为什么是这个级别（频率 / 影响 / 有无替代办法 / 实现依赖）。
+    validations:
+      required: true
+
+  - type: textarea
+    id: open
+    attributes:
+      label: 待决问题
+      description: 评审时要吵的点先记下来，别在会上现想。
+      placeholder: 例："已付费"是否作为独立状态？需与名额规则一起评审。
+    validations:
+      required: false
+
+  - type: input
+    id: usecase
+    attributes:
+      label: 关联用例（第 3 课填写）
+      placeholder: UC-03
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 自检
+      options:
+        - label: 删掉这条故事后，能说出用户损失了什么
+          required: true
+        - label: 证据链接可点击，并能定位到具体行
+          required: true
+        - label: 已指派负责人（Issue Assignee）
+          required: true
